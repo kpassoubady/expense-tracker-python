@@ -55,7 +55,7 @@ Welcome to the **Personal Expense Tracker** - a comprehensive **GitHub Copilot M
 
 ---
 
-### 🎨 Day 1 Afternoon: Web Layer & Frontend (2 Sessions × 45 minutes each)
+### 🎨 Day 1 Afternoon: Web Layer & Frontend (3 Sessions × 25-45 minutes each)
 
 **🎯 Focus**: Create Beautiful User Interface with Advanced Copilot Techniques
 
@@ -72,23 +72,37 @@ Welcome to the **Personal Expense Tracker** - a comprehensive **GitHub Copilot M
 **⏱️ Duration**: 45 minutes (Extended for Chat Interface mastery)  
 **🎁 Deliverables**: Complete REST API layer + advanced Chat Interface skills
 
-#### Session 4: [Web Interface & Multi-Language AI Coordination](2-breakout/4-Day1-Session4-Web-Interface-Templates.md)
+#### Session 4: [Web Foundation & Layout](2-breakout/4-Day1-Session4-Web-Foundation-Layout.md)
 
 **What You'll Learn:**
 
-- Create **AI-generated Jinja2 templates** with Bootstrap integration
+- Create **AI-generated base layout template** with Bootstrap navigation
+- Build **reusable error handling templates** with Copilot assistance
+- Implement **web routes with proper error handling** patterns
+- Master the **`is_edit` flag pattern** for reusable forms
+- Set up **Jinja2 template inheritance** structure
+
+**⏱️ Duration**: 25 minutes  
+**🎁 Deliverables**: Base layout, error templates, web routes infrastructure
+
+#### Session 5: [Feature Templates & Multi-Language Coordination](2-breakout/5-Day1-Session5-Feature-Templates.md)
+
+**What You'll Learn:**
+
+- Create **AI-generated dashboard** with Chart.js integration
 - Practice **multi-language coordination** (Python + HTML + JavaScript)
-- Implement **Copilot-assisted form handling** and validation patterns
-- Build **interactive dashboards** with AI-suggested chart implementations
+- Build **category & expense templates** with CRUD functionality
+- Implement **Copilot-assisted form handling** with notes field
 - Master **frontend pattern recognition** across different languages
 
-**⏱️ Duration**: 45 minutes (Extended for comprehensive frontend AI integration)  
-**🎁 Deliverables**: Fully functional web application + professional frontend AI skills
+**⏱️ Duration**: 25 minutes  
+**🎁 Deliverables**: Complete web application with all feature templates
 
 **💡 Skills You'll Gain:**
 
 - **REST API design** with Chat Interface-guided best practices
-- **Modern web templating** using AI-assisted Jinja2 and Bootstrap patterns
+- **Template inheritance** using AI-assisted Jinja2 base layouts
+- **Modern web templating** with Bootstrap patterns and error handling
 - **Multi-language coordination** (Python + HTML + JavaScript) with AI
 - **Interactive development** through GitHub Copilot Chat and agent usage
 - **Professional frontend patterns** with responsive design and dynamic functionality
@@ -221,7 +235,8 @@ Throughout this course, you'll progressively master GitHub Copilot's advanced fe
 - **Session 1**: **Foundation Skills** - Interface basics, context selection (`#selection`, `#editor`), model comparison, inline completions, terminal integration (`#terminal_selection`)
 - **Session 2**: **Intermediate Skills** - Pattern recognition, test generation, business logic assistance
 - **Session 3**: **Advanced Techniques** - Chat Interface mastery, agent specialization (`@workspace`, `@terminal`, `@git`), API development patterns
-- **Session 4**: **Multi-language Coordination** - HTML/CSS/JS generation, template patterns, full-stack integration
+- **Session 4**: **Web Foundation** - Base layouts, error handling, template inheritance, `is_edit` flag pattern
+- **Session 5**: **Multi-language Coordination** - HTML/CSS/JS generation, Chart.js integration, full-stack templates
 
 ### 🔧 **Practical Integration**
 
@@ -257,9 +272,10 @@ Each session is designed to be completed in **45 minutes of focused time** with 
 - **Session 1**: Models & Database + Basic Copilot Skills (45 min)
 - **Session 2**: Services & Business Logic + Pattern Recognition (45 min)
 - **Session 3**: REST APIs & Routes + Chat Interface Mastery (45 min)
-- **Session 4**: Web Interface & Templates + Multi-Language Coordination (45 min)
+- **Session 4**: Web Foundation & Layout + Template Inheritance (25 min)
+- **Session 5**: Feature Templates + Multi-Language Coordination (25 min)
 
-**🎓 Total Learning Time**: 8 hours of intensive AI-assisted development mastery
+**🎓 Total Learning Time**: ~3 hours of intensive AI-assisted development mastery
 
 **🏆 Final Achievement**: Complete GitHub Copilot Professional Mastery + Portfolio-Quality Project
 
