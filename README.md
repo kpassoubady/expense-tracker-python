@@ -221,7 +221,7 @@ expense-tracker-python/
 | name        | VARCHAR(100) | NOT NULL, UNIQUE     | Category name           |
 | description | VARCHAR(255) | NULL                 | Optional description    |
 | icon        | VARCHAR(50)  | DEFAULT 'fas fa-tag' | Font Awesome icon class |
-| color       | VARCHAR(7)   | DEFAULT '#6c757d'    | Hex color code        |
+| color       | VARCHAR(7)   | DEFAULT '#6c757d'    | Hex color code          |
 | created_at  | DATETIME     | DEFAULT NOW()        | Creation timestamp      |
 | updated_at  | DATETIME     | ON UPDATE NOW()      | Last update timestamp   |
 
@@ -236,6 +236,25 @@ expense-tracker-python/
 | notes        | TEXT          | NULL               | Optional notes        |
 | created_at   | DATETIME      | DEFAULT NOW()      | Creation timestamp    |
 | updated_at   | DATETIME      | ON UPDATE NOW()    | Last update timestamp |
+
+---
+
+## 📸 Screenshots
+
+### Dashboard
+<img src="docs/images/1-dashboard-page.png" width="615" height="1000" alt="Dashboard">
+
+### Categories List
+<img src="docs/images/2-categories-list-page.png" width="615" height="1000" alt="Categories List">
+
+### Expenses List
+<img src="docs/images/3-expenses-list-page.png" width="615" height="1000" alt="Expenses List">
+
+### New Expense
+<img src="docs/images/4-new-expesnse.png" width="615" height="1000" alt="New Expense">
+
+### Edit Category
+<img src="docs/images/5-edit-category.png" width="615" height="1000" alt="Edit Category">
 
 ---
 
