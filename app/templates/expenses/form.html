@@ -1,0 +1,70 @@
+{% extends "layout/base.html" %}
+
+{% block title %}{{ 'Edit' if is_edit else 'New' }} Expense - Expense Tracker{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-{{ 'edit' if is_edit else 'plus' }} me-2"></i>
+                        {{ 'Edit' if is_edit else 'New' }} Expense
+                    </h4>
+                </div>
+                <div class="card-body">
+                    {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                    {% endif %}
+
+                    <form method="post" action="{{ '/expenses/' ~ expense.id ~ '/edit' if is_edit else '/expenses' }}">
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description *</label>
+                            <input type="text" class="form-control" id="description" name="description"
+                                value="{{ expense.description if expense else '' }}" required maxlength="255">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="amount" class="form-label">Amount *</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="amount" name="amount" step="0.01"
+                                        min="0.01" value="{{ expense.amount if expense else '' }}" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="expense_date" class="form-label">Date *</label>
+                                <input type="date" class="form-control" id="expense_date" name="expense_date"
+                                    value="{{ expense.expense_date.isoformat() if expense else today }}" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="category_id" class="form-label">Category *</label>
+                            <select class="form-select" id="category_id" name="category_id" required>
+                                <option value="">Select a category</option>
+                                {% for cat in categories %}
+                                <option value="{{ cat.id }}" {{ 'selected' if expense and expense.category_id==cat.id
+                                    }}>
+                                    {{ cat.name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i>Save
+                            </button>
+                            <a href="/expenses" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

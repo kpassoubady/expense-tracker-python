@@ -1,0 +1,152 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Categories - Expense Tracker{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="fas fa-tags me-2"></i>Categories</h1>
+        <a href="/categories/new" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Add Category
+        </a>
+    </div>
+
+    <!-- Success/Error Messages -->
+    {% if error %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>{{ error }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    {% if success %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i>{{ success }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    <!-- Categories Table -->
+    <div class="card shadow">
+        <div class="card-body p-0">
+            {% if categories %}
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 80px;">Icon</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th style="width: 120px;" class="text-center">Expenses</th>
+                            <th style="width: 150px;" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category, expense_count in categories %}
+                        <tr>
+                            <td class="align-middle text-center">
+                                <div class="d-inline-flex align-items-center justify-content-center rounded-circle" 
+                                     style="width: 40px; height: 40px; background-color: {{ category.color or '#6c757d' }};">
+                                    <i class="{{ category.icon or 'fas fa-tag' }} text-white"></i>
+                                </div>
+                            </td>
+                            <td class="align-middle">
+                                <strong>{{ category.name }}</strong>
+                            </td>
+                            <td class="align-middle">
+                                <span class="text-muted">{{ category.description or 'No description' }}</span>
+                            </td>
+                            <td class="align-middle text-center">
+                                <span class="badge bg-secondary">{{ expense_count }}</span>
+                            </td>
+                            <td class="align-middle text-center">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="/categories/{{ category.id }}/edit" 
+                                       class="btn btn-outline-primary" 
+                                       title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button type="button" 
+                                            class="btn btn-outline-danger" 
+                                            onclick="confirmDelete({{ category.id }}, '{{ category.name }}', {{ expense_count }})"
+                                            title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <!-- Empty State -->
+            <div class="text-center py-5">
+                <i class="fas fa-tags fa-4x text-muted mb-3"></i>
+                <h4 class="text-muted">No Categories Found</h4>
+                <p class="text-muted mb-4">Get started by creating your first expense category.</p>
+                <a href="/categories/new" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>Create Your First Category
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Confirm Delete
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="deleteForm" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-2"></i>Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function confirmDelete(categoryId, categoryName, expenseCount) {
+        const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        const deleteForm = document.getElementById('deleteForm');
+        const deleteMessage = document.getElementById('deleteMessage');
+        
+        deleteForm.action = `/categories/${categoryId}/delete`;
+        
+        if (expenseCount > 0) {
+            deleteMessage.innerHTML = `
+                <strong>Warning:</strong> This category "${categoryName}" has ${expenseCount} expense(s) associated with it.
+                <br><br>
+                Deleting this category will also delete all associated expenses. This action cannot be undone.
+                <br><br>
+                Are you sure you want to proceed?
+            `;
+        } else {
+            deleteMessage.innerHTML = `
+                Are you sure you want to delete the category "<strong>${categoryName}</strong>"?
+                <br><br>
+                This action cannot be undone.
+            `;
+        }
+        
+        modal.show();
+    }
+</script>
+{% endblock %}

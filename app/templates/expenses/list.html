@@ -1,0 +1,110 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Expenses - Expense Tracker{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="fas fa-receipt me-2"></i>Expenses</h1>
+        <a href="/expenses/new" class="btn btn-primary">
+            <i class="fas fa-plus me-1"></i>Add Expense
+        </a>
+    </div>
+
+    {% if message %}
+    <div class="alert alert-success alert-dismissible fade show">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="alert alert-danger alert-dismissible fade show">
+        {{ error }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endif %}
+
+    <!-- Filters -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label for="category_id" class="form-label">Category</label>
+                    <select class="form-select" id="category_id" name="category_id">
+                        <option value="">All Categories</option>
+                        {% for cat in categories %}
+                        <option value="{{ cat.id }}" {{ 'selected' if selected_category==cat.id }}>
+                            {{ cat.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="search" class="form-label">Search</label>
+                    <input type="text" class="form-control" id="search" name="search"
+                        placeholder="Search description..." value="{{ search_query or '' }}">
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search me-1"></i>Filter
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if expenses %}
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expense in expenses %}
+                    <tr>
+                        <td>{{ expense.expense_date.strftime('%b %d, %Y') }}</td>
+                        <td>{{ expense.description }}</td>
+                        <td>
+                            <span class="badge" style="background-color: {{ expense.category.color }}">
+                                <i class="{{ expense.category.icon }} me-1"></i>
+                                {{ expense.category.name }}
+                            </span>
+                        </td>
+                        <td class="fw-bold text-success">${{ "%.2f"|format(expense.amount) }}</td>
+                        <td>
+                            <a href="/expenses/{{ expense.id }}/edit" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form action="/expenses/{{ expense.id }}/delete" method="post" class="d-inline"
+                                onsubmit="return confirm('Delete this expense?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <div class="card">
+        <div class="card-body empty-state">
+            <i class="fas fa-receipt"></i>
+            <h5>No expenses found</h5>
+            <p class="text-muted">Start tracking your spending</p>
+            <a href="/expenses/new" class="btn btn-primary">Add Expense</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
